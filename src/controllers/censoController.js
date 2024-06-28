@@ -62,11 +62,11 @@ const processExcelData = (data) => {
 };
 
 export const renderExcelJson = (req, res) => {
-  res.render('excel-json', { title: 'Cargar y Procesar Excel a JSON', data: [] });
+  res.render('excel_json', { title: 'Cargar y Procesar Excel a JSON', data: [] });
 };
 
 export const renderTableCenso = (req, res) => {
-  res.render('table-censo', { title: 'Tabla de Censo', data: [] });
+  res.render('table_censo', { title: 'Tabla de Censo', data: [] });
 };
 
 export const uploadAndProcessExcel = async (req, res) => {
@@ -81,14 +81,14 @@ export const uploadAndProcessExcel = async (req, res) => {
     const { viewType } = req.body; // Obtener el tipo de vista seleccionado por el usuario
 
     if (viewType === '1') {
-      res.render('excel-json', { title: 'Datos del Censo en JSON', data: formattedData });
+      res.render('excel_json', { title: 'Datos del Censo en JSON', data: formattedData });
     } else if (viewType === '2') {
-      res.render('table-censo', { title: 'Tabla de Censo', data: formattedData });
+      res.render('table_censo', { title: 'Tabla de Censo', data: formattedData });
     } else {
       res.status(400).send('Invalid view type selected');
     }
   } catch (error) {
     console.error('Error processing Excel file:', error);
-    res.status(500).render('excel-json', { title: 'Cargar y Procesar Excel a JSON', error: 'Ocurrió un error al procesar el archivo Excel.', data: [] });
+    res.status(500).render('excel_json', { title: 'Cargar y Procesar Excel a JSON', error: 'Ocurrió un error al procesar el archivo Excel.', data: [] });
   }
 };
