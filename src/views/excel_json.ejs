@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.0/font/bootstrap-icons.min.css"
+      rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Censo a JSON</title>
 </head>
 
@@ -20,34 +18,57 @@
             <div class="col text-dark-emphasis bg-dark-subtle border border-dark-subtle rounded-3">
                 <h1 class="text-center mb-4">Datos del censo en formato JSON</h1>
                 <%- include('partials/header') %>
-                <div class="mb-3">
-                    <button id="copyButton" class="btn btn-primary bg-primary-subtle btn-sm me-2 rounded-3"
-                        title="Copiar"><i class="bi bi-files text-primary-emphasis"></i> Copiar</button>
-                </div>
-                <pre id="jsonData"
-                    class="text-dark-emphasis bg-secondary-subtle border border-secondary-subtle rounded-3"><%= JSON.stringify(data, null, 2) %>
-                </pre>
+                    <div class="mb-3">
+                        <p>
+                            <button id="copyButton" type="submit"
+                                class="text-primary-emphasis btn btn-primary bg-primary-subtle btn-sm me-2 rounded-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                                    <path
+                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+                                </svg> Copiar filas seleccionadas</button>
+                        </p>
+                    </div>
+                    <pre id="jsonData"
+                        class="text-dark-emphasis bg-secondary-subtle border border-secondary-subtle rounded-3"><%= JSON.stringify(data, null, 2) %>
+                    </pre>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-3 mb-2 bg-primary-subtle text-primary-emphasis">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-primary-emphasis" id="updateModalLabel">Datos copiados
+                                        Con exito!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body alert alert-info">
+                                    <p id="updateMessage" class="text-primary-emphasis"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                        class="btn btn-primary bg-primary-subtle text-ligth-emphasis btn-sm me-2 rounded-3"
+                                        data-bs-dismiss="modal">Entendido</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             </div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('copyButton').addEventListener('click', function () {
-            var jsonData = document.getElementById('jsonData').textContent;
-            navigator.clipboard.writeText(jsonData).then(function () {
-                alert('JSON copiado al portapapeles');
-            }, function (err) {
-                console.error('Error al copiar el JSON: ', err);
-            });
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+    <!-- Scripts especiales -->
+    <script src="/js/json-scripts.js"></script>
+
 </body>
 
 </html>

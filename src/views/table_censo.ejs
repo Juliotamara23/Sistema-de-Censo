@@ -23,15 +23,17 @@
           <table id="Censo"
             class="table display nowrap table-hover border border-dark-subtle rounded-3 width: 800px margin: 0 auto"
             style="width:100%">
-            <p><button id="submit" type="submit"
-                class="text-warning-emphasis btn btn-warning bg-warning-subtle btn-sm me-2 rounded-3"><svg
-                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy"
-                  viewBox="0 0 16 16">
-                  <path d="M11 2H9v3h2z"></path>
+            <p>
+              <button id="button" type="submit"
+                class="text-warning-emphasis btn btn-warning bg-warning-subtle btn-sm me-2 rounded-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
                   <path
-                    d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z">
-                  </path>
-                </svg> Guardar cambios</button></p>
+                    d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+                </svg> Copiar filas seleccionadas</button>
+            </p>
             <thead class="thead-dark text-center">
               <tr>
                 <th>RESGUARDO INDIGENA</th>
@@ -49,6 +51,7 @@
                 <th>ESCOLARIDAD</th>
                 <th>INTEGRANTES</th>
                 <th>DIRECCION</th>
+                <TH>TELEFONO</TH>
                 <th>USUARIO</th>
               </tr>
             </thead>
@@ -101,6 +104,9 @@
                     <%= item['DIRECCION'] %>
                   </td>
                   <td>
+                    <%= item['TELEFONO'] %>
+                  </td>
+                  <td>
                     <%= item['USUARIO'] %>
                   </td>
                 </tr>
@@ -108,17 +114,22 @@
             </tbody>
             <tfoot>
               <tr>
-                <th>CEDULA TITULAR</th>
-                <th>DEPARTAMENTO</th>
-                <th>MUNICIPIO</th>
-                <th>CODMUNICIPIO</th>
-                <th>RESGUARDO</th>
-                <th>COMUNIDAD</th>
-                <th>CABILDO</th>
-                <th>PUEBLOINDIGENA</th>
-                <th>ESTADOHOGAR</th>
-                <th>TITULAR AVALADO SI o NO</th>
-                <th>NOMBRE DEL CABILDO</th>
+                <th>RESGUARDO INDIGENA</th>
+                <th>COMUNIDAD INDIGENA</th>
+                <th>FAMILIA</th>
+                <th>TIPO IDENTIFICACION</th>
+                <th>NUMERO DOCUMENTO</th>
+                <th>NOMBRE</th>
+                <th>APELLIDOS</th>
+                <th>FECHA NACIMIENTO</th>
+                <th>PARENTESCO</th>
+                <th>SEXO</th>
+                <th>ESTADO CIVIL</th>
+                <th>PROFESION</th>
+                <th>ESCOLARIDAD</th>
+                <th>INTEGRANTES</th>
+                <th>DIRECCION</th>
+                <th>USUARIO</th>
               </tr>
             </tfoot>
           </table>
@@ -128,7 +139,7 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content p-3 mb-2 bg-primary-subtle text-primary-emphasis">
                 <div class="modal-header">
-                  <h5 class="modal-title text-primary-emphasis" id="updateModalLabel">Actualización completada</h5>
+                  <h5 class="modal-title text-primary-emphasis" id="updateModalLabel">Datos copiados Con exito!</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body alert alert-info">
