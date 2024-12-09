@@ -56,7 +56,7 @@ El proyecto se pretende mejorar con el tiempo.
 ## Acceso al proyecto  
 Puedes clonar este repositorio usando:  
 ```bash
-git clone <https://github.com/Juliotamara23/Sistema-de-Censo.git>
+git clone https://github.com/Juliotamara23/Sistema-de-Censo.git
 ```
 Para iniciar el proyecto, ejecuta el siguiente comando en la carpeta del proyecto:
 ```bash
