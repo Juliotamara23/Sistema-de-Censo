@@ -75,4 +75,4 @@ npm start
 
 ## Personas Desarrolladores del Proyecto
 
-- [Julio Tamara](https://github.com/Juliotamara23)
+- | [<img src="https://avatars.githubusercontent.com/u/37356058?v=4" width=115><br><sub>Camila Fernanda Alves</sub>](https://github.com/Juliotamara23)
