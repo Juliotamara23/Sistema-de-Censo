@@ -75,4 +75,4 @@ npm start
 
 ## Personas Desarrolladores del Proyecto
 
-- [<img src="https://avatars.githubusercontent.com/u/48834639?s=400&u=4530216adb4ffc12ae61ed48e20a61d2dcc46d72&v=4" width=115><br><sub>Julio Tamara</sub>](https://github.com/Juliotamara23)
+[<img src="https://avatars.githubusercontent.com/u/48834639?s=400&u=4530216adb4ffc12ae61ed48e20a61d2dcc46d72&v=4" width=115><br><sub>Julio Tamara</sub>](https://github.com/Juliotamara23)
