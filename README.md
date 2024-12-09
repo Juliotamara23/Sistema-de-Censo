@@ -1,4 +1,4 @@
-<em>#Sistema de Censo</em>
+# <h1 align="center"> Su título aquí </h1>
 
 ![Sistema de Censo](https://via.placeholder.com/1200x400?text=Sistema+de+Censos)  
 
