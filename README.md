@@ -1,20 +1,19 @@
-# Sistema de Censo
+<em>#Sistema de Censo</em>
 
-## Título e imagen de portada  
-![Sistema de Censos](https://via.placeholder.com/1200x400?text=Sistema+de+Censos)  
+![Sistema de Censo](https://via.placeholder.com/1200x400?text=Sistema+de+Censos)  
 
 ---
 
 ![Estado del proyecto](https://img.shields.io/badge/Estado-En%20desarrollo-yellow)  
 ![Licencia MIT](https://img.shields.io/badge/Licencia-MIT-blue)  
-![Node.js](https://img.shields.io/badge/Node.js-%3E%3D16.0.0-green)  
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.12.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-blue)  
 
 ---
 
 ## Índice  
 
-* [Título e imagen de portada](#título-e-imagen-de-portada)
+* [Título e imagen de portada](#Sistema-de-Censo)
 * [Índice](#índice)  
 * [Descripción del proyecto](#descripción-del-proyecto)  
 * [Estado del proyecto](#estado-del-proyecto)  
