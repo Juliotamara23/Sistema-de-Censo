@@ -1,21 +1,26 @@
-<h2 class="text-center mb-4">Adjunte el archivo</h2>
-<form class="row row-cols-lg-auto g-3 align-items-center" action="/upload-censo" method="post"
-  enctype="multipart/form-data">
-  <div class="col-12">
-    <input type="file" name="excelFile" id="input"
-      class="form-control btn btn-secondary bg-secondary-subtle text-light-emphasis rounded-3"
-      accept=".xls,.xlsx" required>
+<link rel="stylesheet" href="/css/form.css">
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="custom-form">
+        <h2 class="text-center mb-4">Adjunte el archivo</h2>
+        <form class="row g-3" action="/upload-censo" method="post" enctype="multipart/form-data">
+          <div class="col-12">
+            <input type="file" name="excelFile" id="input" class="form-control custom-input" accept=".xls,.xlsx"
+              required>
+          </div>
+          <div class="col-12">
+            <select class="form-select custom-select" id="inlineFormSelectPref" name="viewType" required>
+              <option selected disabled>Selección de formato</option>
+              <option value="1">Excel a JSON</option>
+              <option value="2">Excel a tabla</option>
+            </select>
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn custom-btn">Procesar</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="col-12">
-    <label class="visually-hidden" for="inlineFormSelectPref">Formato</label>
-    <select class="form-select btn btn-secondary bg-secondary-subtle text-litgh-emphasis btn-xl me-5 rounded-3" id="inlineFormSelectPref" name="viewType" required>
-      <option selected>Selecion de formato</option>
-      <option value="1">Excel a json</option>
-      <option value="2">Excel a tabla</option>
-    </select>
-  </div>
-  <div class="col-12">
-    <button type="submit"
-      class="btn btn-primary bg-primary-subtle text-light-emphasis rounded-3">Procesar</button>
-  </div>
-</form>
+</div>
