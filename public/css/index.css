@@ -13,8 +13,8 @@ body {
   transition: transform 0.2s;
   cursor: pointer;
   text-align: center;
-  margin-left: 90px;
-  margin-right: 90px;
+  margin-left: 220px;
+  margin-right: 220px;
 }
 .feature-card:hover {
   transform: translateY(-5px);
