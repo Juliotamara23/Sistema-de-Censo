@@ -1,0 +1,49 @@
+:root {
+  --accent-color: #4caf50;
+}
+body {
+  background-color: #2b2b2b;
+  color: #ffffff;
+}
+.feature-card {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 90px;
+  margin-right: 90px;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+.feature-icon {
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.feature-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+.feature-description {
+  color: #999;
+}
+.feature-link {
+  color: #4caf50;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1rem;
+}
+.feature-link:hover,
+.feature-link:focus {
+  color: #45a049;
+  text-decoration: none;
+}
+.feature-link:hover .feature-title,
+.feature-link:focus .feature-title {
+  text-decoration: none;
+}
