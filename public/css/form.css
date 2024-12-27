@@ -39,12 +39,12 @@ body {
 }
 
 .custom-btn {
-    background-color: var(--accent-color);
+    background-color: #45a049;
     border: none;
     color: #fff;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
 }
 
 .custom-btn:hover {
-    background-color: #45a049;
+    background-color: var(--accent-color);
 }
