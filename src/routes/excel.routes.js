@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { renderExcelJson, renderTableCenso, uploadAndProcessExcel } from '../controllers/censoController.js'
-import { renderExcelJsonRenta, renderTableRenta, uploadAndProcessExcelRenta } from '../controllers/rentaController.js'
+import { renderExcelJsonRenta, renderTableRenta, uploadAndProcessExcelRenta, getRentaData } from '../controllers/rentaController.js'
 
 const router = Router()
 
@@ -23,5 +23,8 @@ router.post('/upload-censo', uploadAndProcessExcel);
 router.get('/excel-json-altas', renderExcelJsonRenta);
 router.get('/table-renta', renderTableRenta);
 router.post('/upload-renta', uploadAndProcessExcelRenta);
+
+// Api endpoint del datatable
+router.post('/api/renta-data', getRentaData);
 
 export default router
