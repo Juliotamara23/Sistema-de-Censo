@@ -1,78 +1,112 @@
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="dark">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.0/font/bootstrap-icons.min.css"
-        rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="css/json.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Censo a JSON</title>
-</head>
+  </head>
 
-<body>
-    <div class="container sm-5">
-        <div class="row">
-            <div class="col text-dark-emphasis bg-dark-subtle border border-dark-subtle rounded-3">
-                <h1 class="text-center mb-4">Datos del censo en formato JSON</h1>
-                <%- include('partials/header') %>
-                    <div class="mb-3">
-                        <p>
-                            <button id="copyButton" type="submit"
-                                class="text-primary-emphasis btn btn-primary bg-primary-subtle btn-sm me-2 rounded-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
-                                    <path
-                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708" />
-                                </svg> Copiar JSON</button>
-
-                            <button id="downloadButton" type="submit"
-                                class="text-success-emphasis btn btn-success bg-success-subtle btn-sm me-2 rounded-3">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"
-                                    style="display: inline-block; vertical-align: text-bottom;">
-                                    <path
-                                        d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z">
-                                    </path>
-                                    <path
-                                        d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z">
-                                    </path>
-                                </svg></svg>
-                                </svg> Descargar JSON</button>
-                        </p>
-                    </div>
-                    <pre id="jsonData"
-                        class="text-dark-emphasis bg-secondary-subtle border border-secondary-subtle rounded-3"><%= JSON.stringify(data, null, 2) %>
-                    </pre>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content p-3 mb-2 bg-primary-subtle text-primary-emphasis">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-primary-emphasis" id="updateModalLabel">Datos copiados
-                                        Con exito!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body alert alert-info">
-                                    <p id="updateMessage" class="text-primary-emphasis"></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button"
-                                        class="btn btn-primary bg-primary-subtle text-ligth-emphasis btn-sm me-2 rounded-3"
-                                        data-bs-dismiss="modal">Entendido</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
+  <body>
+    <header class="custom-header">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand feature-title" href="/">Sistema de Censo</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/process_censo">Procesar censo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/process_renta"
+                  >Procesar Renta ciudadana</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+    </header>
+
+    <div class="container py-5">
+      <div class="custom-container">
+        <h1 class="text-center mb-4">Datos en formato JSON</h1>
+        <div class="mb-3">
+          <button id="copyButton" type="button" class="btn custom-btn me-2">
+            <i class="bi bi-clipboard-check"></i> Copiar JSON
+          </button>
+          <button
+            id="downloadButton"
+            type="button"
+            class="btn custom-btn-secondary"
+          >
+            <i class="bi bi-download"></i> Descargar JSON
+          </button>
+        </div>
+        <pre id="jsonData"><%= JSON.stringify(data, null, 2) %></pre>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="updateModal"
+          tabindex="-1"
+          aria-labelledby="updateModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">
+                  Datos copiados con éxito!
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p id="updateMessage"></p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn custom-btn"
+                  data-bs-dismiss="modal"
+                >
+                  Entendido
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -81,7 +115,5 @@
 
     <!-- Scripts especiales -->
     <script src="/js/json-scripts.js"></script>
-
-</body>
-
+  </body>
 </html>
