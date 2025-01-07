@@ -1,0 +1,77 @@
+:root {
+  --accent-color: #4caf50;
+}
+
+body {
+  background-color: #2b2b2b;
+  color: #ffffff;
+}
+
+.custom-container {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.custom-btn {
+  background-color: var(--accent-color);
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #45a049;
+}
+
+.custom-btn-secondary {
+  background-color: #607d8b;
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn-secondary:hover {
+  background-color: #546e7a;
+}
+
+#jsonData {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar styles */
+#jsonData::-webkit-scrollbar {
+  width: 12px;
+}
+
+#jsonData::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+#jsonData::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 6px;
+  border: 3px solid #1e1e1e;
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.modal-header {
+  border-bottom: 1px solid #444;
+}
+
+.modal-footer {
+  border-top: 1px solid #444;
+}
