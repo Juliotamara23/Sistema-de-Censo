@@ -2,12 +2,12 @@ $(document).ready(function () {
   var table = $("#Censo").DataTable({
     serverSide: true, // Procesamiento del lado del servidor
     ajax: {
-        url: "/api/renta-data",
-        type: "POST",
-        dataSrc: function(json) {
-          return json.data || [];
-        }
+      url: "/api/renta-data",
+      type: "POST",
+      dataSrc: function (json) {
+        return json.data || [];
       },
+    },
     columns: [
       { data: "CEDULA TITULAR" },
       { data: "DEPARTAMENTO" },
@@ -28,12 +28,13 @@ $(document).ready(function () {
     paging: false,
     dom: "Bfrtip",
     language: {
-      url: "/js/i18n/es-CO.json"
+      url: "/js/i18n/es-CO.json",
     },
     buttons: [
       {
-        text: '<i class="bi bi-clipboard text-primary-emphasis"> Copiar filas</i>',
-        className: "btn btn-primary bg-primary-subtle me-2 rounded-3",
+        text: " Copiar filas",
+        className:
+          "bi bi-clipboard text-primary-emphasis btn btn-primary bg-primary-subtle me-2 rounded-3",
         titleAttr: "Copiar",
         action: async function () {
           var selectedData = table.rows(".selected").data().toArray();
@@ -66,20 +67,23 @@ $(document).ready(function () {
       },
       {
         extend: "pdf",
-        text: '<i class="bi bi-file-pdf text-danger-emphasis"> Exportar a PDF</i>',
-        className: "btn btn-danger bg-danger-subtle me-2 rounded-3",
+        text: " Exportar a PDF",
+        className:
+          "bi bi-file-pdf text-danger-emphasis btn btn-danger bg-danger-subtle me-2 rounded-3",
         titleAttr: "PDF",
       },
       {
         extend: "print",
-        text: '<i class="bi bi-printer text-secondary-emphasis"> Imprimir</i>',
-        className: "btn btn-secondary bg-secondary-subtle me-2 rounded-3",
+        text: " Imprimir",
+        className:
+          "bi bi-printer text-secondary-emphasis btn btn-secondary bg-secondary-subtle me-2 rounded-3",
         titleAttr: "Imprimir",
       },
       {
         extend: "colvis",
-        text: '<i class="bi bi-eye text-dark-emphasis"> Columnas visibles</i>',
-        className: "btn btn-light bg-light-subtle me-2 btn-sm me-2 rounded-3",
+        text: " Columnas visibles",
+        className:
+          "bi bi-eye text-dark-emphasis btn btn-light bg-light-subtle me-2 btn-sm me-2 rounded-3",
         titleAttr: "Visibilidad",
       },
     ],
