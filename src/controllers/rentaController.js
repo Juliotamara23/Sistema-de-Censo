@@ -5,6 +5,7 @@ let processedRentaData = [];
 
 // Mapeo de nombres de columnas vacías a nombres descriptivos
 const columnMapping = {
+  __EMPTY_2: "TITULARES DE RESGUARDOS INDÍGENAS",
   __EMPTY: "CEDULA TITULAR",
   __EMPTY_1: "DEPARTAMENTO",
   __EMPTY_2: "MUNICIPIO",
@@ -14,7 +15,7 @@ const columnMapping = {
   __EMPTY_6: "CABILDO",
   __EMPTY_7: "PUEBLOINDIGENA",
   __EMPTY_8: "ESTADOHOGAR",
-  __EMPTY_9: "TITULAR        AVALADO                                SI o NO",
+  __EMPTY_9: "TITULAR AVALADO SI o NO",
   __EMPTY_10: "NOMBRE DEL CABILDO",
 };
 
@@ -33,22 +34,49 @@ const excelToJson = async (data) => {
 
 // Función para procesar los datos de Excel y formatearlos
 const processExcelDataRenta = async (data) => {
-  const jsonData = await excelToJson(data);
-  const formattedData = jsonData.reduce((acc, dato) => {
-    let formattedDato = {};
-    Object.keys(dato).forEach((key) => {
-      if (columnMapping[key]) {
-        if (dato[key] !== columnMapping[key]) {
-          formattedDato[columnMapping[key]] = dato[key];
-        }
-      }
+  try {
+    const jsonData = await excelToJson(data);
+    
+    // Debug raw data
+    console.log('Raw Excel Data:', jsonData[0]);
+
+    // Create reverse mapping for easier lookup
+    const reverseMapping = Object.entries(columnMapping).reduce((acc, [key, value]) => {
+      acc[value] = key;
+      return acc;
+    }, {});
+
+    const formattedData = jsonData.map((dato) => {
+      // Initialize object with mapped keys
+      const formattedDato = {};
+      
+      // Map each field using columnMapping
+      Object.entries(columnMapping).forEach(([originalKey, mappedKey]) => {
+        const value = dato[originalKey];
+        formattedDato[mappedKey] = value !== undefined && value !== null && value !== ''
+          ? String(value).trim()
+          : "";
+      });
+
+      // Debug formatted row
+      console.log('Formatted Row:', formattedDato);
+      
+      return formattedDato;
     });
-    if (Object.keys(formattedDato).length > 0) {
-      acc.push(formattedDato);
+
+    // Validate final data
+    if (!formattedData.length) {
+      throw new Error('No valid data found after processing');
     }
-    return acc;
-  }, []);
-  return formattedData;
+
+    // Debug first row of final data
+    console.log('First Row of Processed Data:', formattedData[0]);
+
+    return formattedData;
+  } catch (error) {
+    console.error('Error in processExcelDataRenta:', error);
+    throw error;
+  }
 };
 
 export const renderExcelJsonRenta = (req, res) => {
@@ -70,9 +98,6 @@ export const uploadAndProcessExcelRenta = async (req, res) => {
     const file = req.files.excelFile; // Se asume que el archivo se envía con el campo 'excelFile'
     const data = await fs.readFile(file.tempFilePath);
     const formattedData = await processExcelDataRenta(data);
-
-    //debug
-    // console.log("formattedData", formattedData);
 
     // Procesamiento de los datos en memoria
     processedRentaData = formattedData;
@@ -104,9 +129,6 @@ export const uploadAndProcessExcelRenta = async (req, res) => {
 
 export const getRentaData = async (req, res) => {
   try {
-    //debug
-    // console.log("current processRentaData", processedRentaData);
-
     // Verificar si hay datos procesados
     if (!processedRentaData || !processedRentaData.length) {
       return res.status(400).json({
@@ -124,9 +146,6 @@ export const getRentaData = async (req, res) => {
         String(val).toLowerCase().includes(searchValue.toLowerCase())
       )
     );
-
-    // Paginar datos
-    const paginatedData = filteredData.slice(start, start + length);
 
     // Formateo de datos para el datatable
     res.json({
