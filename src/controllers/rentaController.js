@@ -1,11 +1,7 @@
 import XLSX from "xlsx";
-import path from "path";
-import { fileURLToPath } from "url";
 import fs from "fs/promises";
 
 let processedRentaData = [];
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Mapeo de nombres de columnas vacías a nombres descriptivos
 const columnMapping = {
@@ -23,8 +19,8 @@ const columnMapping = {
 };
 
 // Función para convertir Excel a JSON
-const excelToJson = (data) => {
-  let workbook = XLSX.read(data, { type: "array" });
+const excelToJson = async (data) => {
+  let workbook = await XLSX.read(data, { type: "array" });
   let jsonData = [];
   workbook.SheetNames.forEach((sheet) => {
     let rowObject = XLSX.utils.sheet_to_row_object_array(
@@ -36,20 +32,14 @@ const excelToJson = (data) => {
 };
 
 // Función para procesar los datos de Excel y formatearlos
-const processExcelDataRenta = (data) => {
-  const jsonData = excelToJson(data);
+const processExcelDataRenta = async (data) => {
+  const jsonData = await excelToJson(data);
   const formattedData = jsonData.reduce((acc, dato) => {
     let formattedDato = {};
     Object.keys(dato).forEach((key) => {
       if (columnMapping[key]) {
         if (dato[key] !== columnMapping[key]) {
-          if (columnMapping[key] === "FECHA NACIMIENTO") {
-            formattedDato[columnMapping[key]] = new Date(
-              (dato[key] - (25567 + 2)) * 86400 * 1000
-            ).toLocaleDateString();
-          } else {
-            formattedDato[columnMapping[key]] = dato[key];
-          }
+          formattedDato[columnMapping[key]] = dato[key];
         }
       }
     });
@@ -79,7 +69,10 @@ export const uploadAndProcessExcelRenta = async (req, res) => {
     }
     const file = req.files.excelFile; // Se asume que el archivo se envía con el campo 'excelFile'
     const data = await fs.readFile(file.tempFilePath);
-    const formattedData = processExcelDataRenta(data);
+    const formattedData = await processExcelDataRenta(data);
+
+    //debug
+    // console.log("formattedData", formattedData);
 
     // Procesamiento de los datos en memoria
     processedRentaData = formattedData;
@@ -109,10 +102,13 @@ export const uploadAndProcessExcelRenta = async (req, res) => {
   }
 };
 
-export const getRentaData = (req, res) => {
+export const getRentaData = async (req, res) => {
   try {
+    //debug
+    // console.log("current processRentaData", processedRentaData);
+
     // Verificar si hay datos procesados
-    if (!processedRentaData.length) {
+    if (!processedRentaData || !processedRentaData.length) {
       return res.status(400).json({
         error: "No data available. Please upload an Excel file first.",
       });
@@ -120,8 +116,6 @@ export const getRentaData = (req, res) => {
 
     // Obtener los parametros de la datatable
     const draw = parseInt(req.body.draw);
-    const start = parseInt(req.body.start);
-    const length = parseInt(req.body.length);
     const searchValue = req.body.search?.value || "";
 
     // Filtrar datos por busqueda
@@ -134,13 +128,12 @@ export const getRentaData = (req, res) => {
     // Paginar datos
     const paginatedData = filteredData.slice(start, start + length);
 
-    // Formatear datos para la datatable
-
+    // Formateo de datos para el datatable
     res.json({
       draw: draw,
       recordsTotal: processedRentaData.length,
       recordsFiltered: filteredData.length,
-      data: paginatedData,
+      data: filteredData, // Manda la información filtrada
     });
   } catch (error) {
     console.log("Error fetching data:", error);
