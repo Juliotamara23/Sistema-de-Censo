@@ -3,9 +3,7 @@ import fs from "fs/promises";
 
 let processedRentaData = [];
 
-// Mapeo de nombres de columnas vacías a nombres descriptivos
 const columnMapping = {
-  __EMPTY_2: "TITULARES DE RESGUARDOS INDÍGENAS",
   __EMPTY: "CEDULA TITULAR",
   __EMPTY_1: "DEPARTAMENTO",
   __EMPTY_2: "MUNICIPIO",
@@ -36,45 +34,42 @@ const excelToJson = async (data) => {
 const processExcelDataRenta = async (data) => {
   try {
     const jsonData = await excelToJson(data);
-    
-    // Debug raw data
-    console.log('Raw Excel Data:', jsonData[0]);
 
-    // Create reverse mapping for easier lookup
-    const reverseMapping = Object.entries(columnMapping).reduce((acc, [key, value]) => {
-      acc[value] = key;
-      return acc;
-    }, {});
+    // Filtrar filas válidas - verificar si al menos un campo __EMPTY tiene contenido numérico
+    const validData = jsonData.filter((row) => {
+      return Object.keys(row).some((key) => {
+        if (key.startsWith("__EMPTY")) {
+          const value = row[key];
+          // Verificar si el valor es numérico (incluyendo números en formato string)
+          return value !== undefined && value !== null && value !== '' && !isNaN(value);
+        }
+        return false;
+      });
+    });
 
-    const formattedData = jsonData.map((dato) => {
-      // Initialize object with mapped keys
+    const formattedData = validData.map((row) => {
       const formattedDato = {};
       
-      // Map each field using columnMapping
-      Object.entries(columnMapping).forEach(([originalKey, mappedKey]) => {
-        const value = dato[originalKey];
+      // Mapeo de columnas
+      Object.entries(columnMapping).forEach(([key, mappedKey]) => {
+        const value = row[key];
+        // Convertir a string y recortar solo si el valor existe
         formattedDato[mappedKey] = value !== undefined && value !== null && value !== ''
           ? String(value).trim()
           : "";
       });
-
-      // Debug formatted row
-      console.log('Formatted Row:', formattedDato);
       
       return formattedDato;
     });
 
-    // Validate final data
+    // Validación de datos procesados	
     if (!formattedData.length) {
-      throw new Error('No valid data found after processing');
+      throw new Error('No se encontraron datos válidos después del procesamiento');
     }
-
-    // Debug first row of final data
-    console.log('First Row of Processed Data:', formattedData[0]);
 
     return formattedData;
   } catch (error) {
-    console.error('Error in processExcelDataRenta:', error);
+    console.error('Error en processExcelDataRenta:', error);
     throw error;
   }
 };
