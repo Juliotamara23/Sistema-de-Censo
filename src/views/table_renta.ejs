@@ -18,7 +18,6 @@
 </head>
 
 <body>
-
   <header class="custom-header">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
@@ -47,7 +46,7 @@
   <div class="container py-5">
     <div class="custom-container">
       <h1 class="text-center mb-4">Tabla de renta ciudadana</h1>
-      <table id="Censo" class="table custom-table display nowrap" style="width: 100%">
+      <table id="Renta" class="table custom-table display nowrap" style="width: 100%">
         <thead>
           <tr>
             <th>CEDULA TITULAR</th>
@@ -64,35 +63,9 @@
           </tr>
         </thead>
         <tbody>
-          <% data.forEach(item => { %>
-            <tr>
-              <td><%= item['CEDULA TITULAR'] %></td>
-              <td><%= item['DEPARTAMENTO'] %></td>
-              <td><%= item['MUNICIPIO'] %></td>
-              <td><%= item['CODMUNICIPIO'] %></td>
-              <td><input type="text" class="form-control" value="<%= item['RESGUARDO'] %>"></td>
-              <td><input type="text" class="form-control" value="<%= item['COMUNIDAD'] %>"></td>
-              <td><input type="text" class="form-control" value="<%= item['CABILDO'] %>"></td>
-              <td><input type="text" class="form-control" value="<%= item['PUEBLOINDIGENA'] %>"></td>
-              <td><input type="text" class="form-control" value="<%= item['ESTADOHOGAR'] %>"></td>
-              <td>
-                <select size="1" class="form-select">
-                  <% if (item['TITULAR AVALADO SI o NO'] === 'SI') { %>
-                    <option value="SI" selected>SI</option>
-                    <option value="NO">NO</option>
-                  <% } else if (item['TITULAR AVALADO SI o NO'] === 'NO') { %>
-                    <option value="SI">SI</option>
-                    <option value="NO" selected>NO</option>
-                  <% } else { %>
-                    <option value="" selected></option>
-                    <option value="SI">SI</option>
-                    <option value="NO">NO</option>
-                  <% } %>
-                </select>
-              </td>
-              <td><input type="text" class="form-control" value="<%= item['NOMBRE DEL CABILDO'] %>"></td>
-            </tr>
-          <% }) %>
+          <div id="loadingMessage" class="text-center" style="display: none;">
+            <p>Cargando información...</p>
+          </div>  
         </tbody>
         <tfoot>
           <tr>
@@ -110,22 +83,26 @@
           </tr>
         </tfoot>
       </table>
+    </div>
+  </div>
 
-      <!-- Modal -->
-      <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="updateModalLabel">Datos copiados con éxito!</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p id="updateMessage"></p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn custom-btn" data-bs-dismiss="modal">Entendido</button>
-            </div>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">
+            Datos copiados con éxito!
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="updateMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn custom-btn" data-bs-dismiss="modal">
+            Entendido
+          </button>
         </div>
       </div>
     </div>
@@ -137,9 +114,7 @@
   <script
     src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fc-5.0.1/datatables.min.js"></script>
 
-  <!-- Script para inicializar DataTable -->
   <script src="/js/dataTable-renta.js"></script>
-
 </body>
 
 </html>

@@ -53,7 +53,7 @@ const processExcelDataRenta = async (data) => {
       // Mapeo de columnas
       Object.entries(columnMapping).forEach(([key, mappedKey]) => {
         const value = row[key];
-        // Convertir a string y recortar solo si el valor existe
+        // Convertir a string y ajustar solo si el valor existe
         formattedDato[mappedKey] = value !== undefined && value !== null && value !== ''
           ? String(value).trim()
           : "";
@@ -108,6 +108,7 @@ export const uploadAndProcessExcelRenta = async (req, res) => {
       res.render("table_renta", {
         title: "Tabla de Renta",
         data: formattedData,
+        loading: false // Añadir un indicador de carga
       });
     } else {
       res.status(400).send("Invalid view type selected");

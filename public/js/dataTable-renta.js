@@ -1,10 +1,16 @@
 $(document).ready(function () {
-  var table = $("#Censo").DataTable({
+  var table = $("#Renta").DataTable({
+    language: {
+      url: "/js/i18n/es-CO.json",
+    },
     serverSide: true, // Procesamiento del lado del servidor
     ajax: {
       url: "/api/renta-data",
       type: "POST",
       dataSrc: function (json) {
+        // Ocultar el mensaje de carga y mostrar la tabla cuando los datos estén listos
+        $("#loadingMessage").hide();
+        $("#Renta").show();
         return json.data || [];
       },
     },
@@ -13,23 +19,56 @@ $(document).ready(function () {
       { data: "DEPARTAMENTO" },
       { data: "MUNICIPIO" },
       { data: "CODMUNICIPIO" },
-      { data: "RESGUARDO" },
-      { data: "COMUNIDAD" },
-      { data: "CABILDO" },
-      { data: "PUEBLOINDIGENA" },
-      { data: "ESTADOHOGAR" },
-      { data: "TITULAR AVALADO SI o NO" },
-      { data: "NOMBRE DEL CABILDO" },
+      {
+        data: "RESGUARDO",
+        render: function (data, type, row) {
+          return `<input type="text" class="form-control" value="${data}">`;
+        },
+      },
+      {
+        data: "COMUNIDAD",
+        render: function (data, type, row) {
+          return `<input type="text" class="form-control" value="${data}">`;
+        },
+      },
+      {
+        data: "CABILDO",
+        render: function (data, type, row) {
+          return `<input type="text" class="form-control" value="${data}">`;
+        },
+      },
+      {
+        data: "PUEBLOINDIGENA",
+        render: function (data, type, row) {
+          return `<input type="text" class="form-control" value="${data}">`;
+        },
+      },
+      {
+        data: "ESTADOHOGAR",
+        render: function (data, type, row) {
+            return `<input type="text" class="form-control" value="${data}">`;
+          },
+          },
+          {
+          data: "TITULAR AVALADO SI o NO",
+          render: function (data, type, row) {
+            return `<input type="text" class="form-control" value="${data}">`;
+          },
+          },
+          {
+          data: "NOMBRE DEL CABILDO",
+          render: function (data, type, row) {
+          return `<input type="text" class="form-control" value="${data}">`;
+        },
+      },
     ],
     deferRender: true,
-    scrollY: 500,
+    dom: "Bfrtip",
+    paging: false,
     scrollCollapse: true,
     scrollX: true,
-    paging: false,
-    dom: "Bfrtip",
-    language: {
-      url: "/js/i18n/es-CO.json",
-    },
+    scrollY: 500,
+    order: [[1, "asc"]],
     buttons: [
       {
         text: " Copiar filas",
@@ -50,7 +89,7 @@ $(document).ready(function () {
           // Copy selected data to clipboard
           var clipboardData = selectedData
             .map(function (row) {
-              return row.join("\t");
+              return Object.values(row).join("\t");
             })
             .join("\n");
 
@@ -87,87 +126,25 @@ $(document).ready(function () {
         titleAttr: "Visibilidad",
       },
     ],
-
     initComplete: function () {
-      // Debounce para la búsqueda
-      var searchTimeout;
       this.api()
         .columns()
         .every(function () {
           let column = this;
           let title = column.footer().textContent;
 
+          // Create input element
           let input = document.createElement("input");
           input.placeholder = title;
           column.footer().replaceChildren(input);
 
+          // Event listener for user input
           input.addEventListener("keyup", () => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-              if (column.search() !== input.value) {
-                column.search(input.value).draw();
-              }
-            }, 300);
+            if (column.search() !== this.value) {
+              column.search(input.value).draw();
+            }
           });
         });
     },
   });
-
-  // Optimizar actualización por lotes
-  $("#submit").on("click", function (e) {
-    e.preventDefault();
-
-    const BATCH_SIZE = 100;
-    const rows = $("#Censo tbody tr").toArray();
-    const totalRows = rows.length;
-    let processedRows = 0;
-
-    function processBatchAsync(startIndex) {
-      return new Promise((resolve) => {
-        const endIndex = Math.min(startIndex + BATCH_SIZE, totalRows);
-        const batch = rows.slice(startIndex, endIndex);
-        requestAnimationFrame(() => {
-          batch.forEach(processRow);
-          processedRows += batch.length;
-
-          // Actualizar progreso
-          updateProgress(processedRows / totalRows);
-          resolve();
-        });
-      });
-    }
-
-    async function processAllBatches() {
-      for (let i = 0; i < totalRows; i += BATCH_SIZE) {
-        await processBatchAsync(i);
-      }
-
-      // Actualización final
-      table.draw();
-      showUpdateModal();
-    }
-
-    processAllBatches();
-  });
-
-  function processRow(row) {
-    // Lógica de procesamiento de fila optimizada
-    const $row = $(row);
-    const rowData = {
-      comunidad: $row.find("td:eq(5) input").val(),
-      cabildo: $row.find("td:eq(6) input").val(),
-      puebloIndigena: $row.find("td:eq(7) input").val(),
-      estadoHogar: $row.find("td:eq(8) input").val(),
-      titularAvalado: $row.find("td:eq(9) select").val(),
-      nombreCabildo: $row.find("td:eq(10) input").val(),
-    };
-
-    // Actualizar DataTable de manera eficiente
-    const rowIdx = table.row(row).index();
-    Object.entries(rowData).forEach(([key, value], colIdx) => {
-      table.cell(rowIdx, colIdx + 5).data(value);
-    });
-
-    return rowData;
-  }
 });
