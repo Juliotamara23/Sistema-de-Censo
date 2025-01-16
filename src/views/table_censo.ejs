@@ -1,186 +1,182 @@
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fc-5.0.1/datatables.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/table.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
-  <link
-    href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fc-5.0.1/datatables.min.css"
-    rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.0/font/bootstrap-icons.min.css"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="/css/header.css" />
-  <link rel="stylesheet" href="/css/table.css" />
+    <title>Tabla de Censo</title>
+  </head>
 
-  <title>Tabla de Censo</title>
-</head>
-
-<body>
-
-  <header class="custom-header">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container">
-        <a class="navbar-brand feature-title" href="/">Sistema de Censo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/process_censo">Procesar censo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/process_renta">Procesar Renta ciudadana</a>
-            </li>
-          </ul>
+  <body>
+    <header class="custom-header">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand feature-title" href="/">Sistema de Censo</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/process_censo">Procesar censo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/process_renta"
+                  >Procesar Renta ciudadana</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
-  <div class="container py-5">
-    <div class="custom-container">
-      <h1 class="text-center mb-4">Tabla de Censo</h1>
-      <table id="Censo" class="table custom-table display nowrap" style="width: 100%">
-        <thead>
-          <tr>
-            <th>RESGUARDO INDIGENA</th>
-            <th>COMUNIDAD INDIGENA</th>
-            <th>FAMILIA</th>
-            <th>TIPO IDENTIFICACION</th>
-            <th>NUMERO DOCUMENTO</th>
-            <th>NOMBRE</th>
-            <th>APELLIDOS</th>
-            <th>FECHA NACIMIENTO</th>
-            <th>PARENTESCO</th>
-            <th>SEXO</th>
-            <th>ESTADO CIVIL</th>
-            <th>PROFESION</th>
-            <th>ESCOLARIDAD</th>
-            <th>INTEGRANTES</th>
-            <th>DIRECCION</th>
-            <th>TELEFONO</th>
-            <th>USUARIO</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% data.forEach(item=> { %>
+    <div class="container py-5">
+      <div class="custom-container">
+        <h1 class="text-center mb-4">Tabla de Censo</h1>
+        <table
+          id="Censo"
+          class="table custom-table display nowrap"
+          style="width: 100%"
+        >
+          <thead>
             <tr>
-              <td>
-                <%= item['RESGUARDO INDIGENA'] %>
-              </td>
-              <td>
-                <%= item['COMUNIDAD INDIGENA'] %>
-              </td>
-              <td>
-                <%= item['FAMILIA'] %>
-              </td>
-              <td>
-                <%= item['TIPO IDENTIFICACION'] %>
-              </td>
-              <td>
-                <%= item['NUMERO DOCUMENTO'] %>
-              </td>
-              <td>
-                <%= item['NOMBRE'] %>
-              </td>
-              <td>
-                <%= item['APELLIDOS'] %>
-              </td>
-              <td>
-                <%= item['FECHA NACIMIENTO'] %>
-              </td>
-              <td>
-                <%= item['PARENTESCO'] %>
-              </td>
-              <td>
-                <%= item['SEXO'] %>
-              </td>
-              <td>
-                <%= item['ESTADO CIVIL'] %>
-              </td>
-              <td>
-                <%= item['PROFESION'] %>
-              </td>
-              <td>
-                <%= item['ESCOLARIDAD'] %>
-              </td>
-              <td>
-                <%= item['INTEGRANTES'] %>
-              </td>
-              <td>
-                <%= item['DIRECCION'] %>
-              </td>
-              <td>
-                <%= item['TELEFONO'] %>
-              </td>
-              <td>
-                <%= item['USUARIO'] %>
-              </td>
+              <th>RESGUARDO INDIGENA</th>
+              <th>COMUNIDAD INDIGENA</th>
+              <th>FAMILIA</th>
+              <th>TIPO IDENTIFICACION</th>
+              <th>NUMERO DOCUMENTO</th>
+              <th>NOMBRE</th>
+              <th>APELLIDOS</th>
+              <th>FECHA NACIMIENTO</th>
+              <th>PARENTESCO</th>
+              <th>SEXO</th>
+              <th>ESTADO CIVIL</th>
+              <th>PROFESION</th>
+              <th>ESCOLARIDAD</th>
+              <th>INTEGRANTES</th>
+              <th>DIRECCION</th>
+              <th>TELEFONO</th>
+              <th>USUARIO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(item=> { %>
+            <tr>
+              <td><%= item['RESGUARDO INDIGENA'] %></td>
+              <td><%= item['COMUNIDAD INDIGENA'] %></td>
+              <td><%= item['FAMILIA'] %></td>
+              <td><%= item['TIPO IDENTIFICACION'] %></td>
+              <td><%= item['NUMERO DOCUMENTO'] %></td>
+              <td><%= item['NOMBRE'] %></td>
+              <td><%= item['APELLIDOS'] %></td>
+              <td><%= item['FECHA NACIMIENTO'] %></td>
+              <td><%= item['PARENTESCO'] %></td>
+              <td><%= item['SEXO'] %></td>
+              <td><%= item['ESTADO CIVIL'] %></td>
+              <td><%= item['PROFESION'] %></td>
+              <td><%= item['ESCOLARIDAD'] %></td>
+              <td><%= item['INTEGRANTES'] %></td>
+              <td><%= item['DIRECCION'] %></td>
+              <td><%= item['TELEFONO'] %></td>
+              <td><%= item['USUARIO'] %></td>
             </tr>
             <% }) %>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>RESGUARDO INDIGENA</th>
-            <th>COMUNIDAD INDIGENA</th>
-            <th>FAMILIA</th>
-            <th>TIPO IDENTIFICACION</th>
-            <th>NUMERO DOCUMENTO</th>
-            <th>NOMBRE</th>
-            <th>APELLIDOS</th>
-            <th>FECHA NACIMIENTO</th>
-            <th>PARENTESCO</th>
-            <th>SEXO</th>
-            <th>ESTADO CIVIL</th>
-            <th>PROFESION</th>
-            <th>ESCOLARIDAD</th>
-            <th>INTEGRANTES</th>
-            <th>DIRECCION</th>
-            <th>TELEFONO</th>
-            <th>USUARIO</th>
-          </tr>
-        </tfoot>
-      </table>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>RESGUARDO INDIGENA</th>
+              <th>COMUNIDAD INDIGENA</th>
+              <th>FAMILIA</th>
+              <th>TIPO IDENTIFICACION</th>
+              <th>NUMERO DOCUMENTO</th>
+              <th>NOMBRE</th>
+              <th>APELLIDOS</th>
+              <th>FECHA NACIMIENTO</th>
+              <th>PARENTESCO</th>
+              <th>SEXO</th>
+              <th>ESTADO CIVIL</th>
+              <th>PROFESION</th>
+              <th>ESCOLARIDAD</th>
+              <th>INTEGRANTES</th>
+              <th>DIRECCION</th>
+              <th>TELEFONO</th>
+              <th>USUARIO</th>
+            </tr>
+          </tfoot>
+        </table>
 
-      <!-- Modal -->
-      <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="updateModalLabel">
-                Datos copiados con éxito!
-              </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p id="updateMessage"></p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn custom-btn" data-bs-dismiss="modal">
-                Entendido
-              </button>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="updateModal"
+          tabindex="-1"
+          aria-labelledby="updateModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">
+                  Datos copiados con éxito!
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p id="updateMessage"></p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn custom-btn"
+                  data-bs-dismiss="modal"
+                >
+                  Entendido
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-  <script
-    src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fc-5.0.1/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fc-5.0.1/datatables.min.js"></script>
 
-  <!-- Script para inicializar DataTable -->
-  <script src="/js/dataTable-censo.js"></script>
-</body>
-
+    <!-- Script para inicializar DataTable -->
+    <script src="/js/dataTable-censo.js"></script>
+  </body>
 </html>

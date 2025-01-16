@@ -1,6 +1,6 @@
 # <h1 align="center">Sistema de Censo</h1>
 
-![Sistema de Censo](https://via.placeholder.com/1200x400?text=Sistema+de+Censos)  
+![Sistema de Censo](Home.png)
 
 ---
 
@@ -69,10 +69,6 @@ npm start
 - EJS
 - Bootstrap
 - Express
-- Multer
+- Express-fileupload
 - XLSX
 - JSON
-
-## Personas Desarrolladores del Proyecto
-
-[<img src="https://avatars.githubusercontent.com/u/48834639?s=400&u=4530216adb4ffc12ae61ed48e20a61d2dcc46d72&v=4" width=115><br><sub>Julio Támara</sub>](https://github.com/Juliotamara23)
